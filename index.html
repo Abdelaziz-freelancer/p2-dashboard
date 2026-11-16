@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة تحكم الموقع | Abdelaziz Tamer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--fg:#0a0a0a;--mute:#6b6b6b;--line:#e4e4e4;--soft:#f6f6f6;--red:#d6293e;--grn:#12805c;--amb:#b7791f}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--soft);color:var(--fg);font:400 15px/1.6 Cairo,system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom,0)}
+button,input,select,textarea{font:inherit;color:inherit}
+.hide{display:none!important}
+/* login */
+.lg{min-height:100vh;display:grid;place-items:center;padding:20px}
+.lgc{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:30px 24px;width:min(380px,100%);text-align:center}
+.lgc h1{font-size:22px;margin-bottom:6px}.lgc p{color:var(--mute);margin-bottom:18px;font-size:14px}
+/* app */
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top,0)) 16px 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.top b{font-size:17px;font-weight:800}
+#tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+#tabs::-webkit-scrollbar{display:none}
+#tabs button{flex:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 12px;font-weight:600;color:var(--mute);cursor:pointer;white-space:nowrap}
+#tabs button.on{color:var(--fg);border-color:var(--fg)}
+.bd{background:var(--red);color:#fff;border-radius:99px;font-size:11px;padding:1px 7px;margin-inline-start:6px}
+main{max-width:980px;margin:auto;padding:16px}
+h2{font-size:20px;margin:6px 0 14px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.row{display:grid;gap:10px}
+.btn{background:var(--fg);color:#fff;border:0;border-radius:99px;padding:10px 20px;font-weight:600;cursor:pointer;min-height:42px}
+.btn.o{background:var(--bg);color:var(--fg);border:1px solid var(--fg)}
+.btn.r{background:var(--bg);color:var(--red);border:1px solid var(--red)}
+.btn:disabled{opacity:.5}
+.sm{padding:6px 14px;min-height:36px;font-size:13px}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--fg)}
+label{display:block;font-weight:600;margin:10px 0 4px;font-size:14px}
+small,.mu{color:var(--mute);font-size:13px}
+.tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:600;background:var(--soft);border:1px solid var(--line)}
+.tag.g{color:var(--grn);border-color:var(--grn)}.tag.a{color:var(--amb);border-color:var(--amb)}.tag.x{color:var(--red);border-color:var(--red)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.sp{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.msg{padding:10px 14px;border-radius:12px;margin-bottom:12px;font-size:14px}.msg.e{background:#fdecee;color:var(--red)}.msg.k{background:#e6f6ef;color:var(--grn)}
+.g2{display:grid;gap:12px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.row.c3{grid-template-columns:1fr 1fr 1fr}}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--red);display:inline-block;margin-inline-end:8px}
+.rng{display:flex;align-items:center;gap:12px}.rng input{padding:0;min-height:30px}.rng output{min-width:48px;text-align:center;font-weight:800}
+/* modal */
+.md{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:none;align-items:flex-end;justify-content:center}
+.md.on{display:flex}
+.box{background:var(--bg);width:min(760px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0))}
+@media(min-width:720px){.md{align-items:center}.box{border-radius:20px}}
+.ans h3{font-size:16px;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+.ans dt{font-weight:600;font-size:14px;margin-top:10px}.ans dd{margin:2px 0 0;white-space:pre-wrap;color:#333}
+@media print{header,main,.noprint{display:none!important}.md{position:static;background:none;display:block}.box{max-height:none;overflow:visible;padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="lg" id="lg"><div class="lgc"><h1>لوحة تحكم الموقع</h1><p>اكتب كلمة السر عشان تدخل</p><input type="password" id="pw" placeholder="كلمة السر" autocomplete="current-password"><div id="le" class="msg e hide" style="margin-top:12px"></div><button class="btn" id="lb" style="margin-top:14px;width:100%">دخول</button></div></div>
+<div id="app" class="hide">
+<header><div class="top"><b>لوحة تحكم الموقع</b><button class="btn o sm" id="out">خروج</button></div><div id="tabs"></div></header>
+<main id="v"></main>
+</div>
+<div class="md" id="md"><div class="box" id="bx"></div></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let PW="",TAB="bookings",BADGE={};
+try{PW=sessionStorage.getItem("pw")||""}catch(e){}
+const ST={new:["جديد","a"],confirmed:["مؤكد","g"],done:["تم","g"],cancelled:["ملغي","x"]};
+const ERR={unauthorized:"كلمة السر غلط",env_missing:"إعدادات Vercel ناقصة (ADMIN_PASSWORD / SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)",slot_booked:"الميعاد ده محجوز، شيل الحجز الأول",bad_whatsapp:"رقم الواتساب غير صحيح",bad_url:"الرابط لازم يبدأ بـ https://",bad_speed:"السرعة لازم تكون بين 0.2 و 4",bad_times:"الأوقات لازم تبقى بالشكل 14:00 ومفصولة بفاصلة",bad_date:"اختار تاريخ",bad_duration:"المدة لازم تكون بين 5 و 240 دقيقة"};
+async function api(action,data){const r=await fetch("/api/admin",{method:"POST",headers:{"Content-Type":"application/json","x-admin-password":PW},body:JSON.stringify({action,...(data||{})})});let j={};try{j=await r.json()}catch(e){}
+if(r.status==401){const e=new Error(ERR.unauthorized);e.auth=1;throw e}
+if(!r.ok){const k=j.error=="failed"?(String(j.message||"").match(/bad_\w+|slot_booked/)||[""])[0]:j.error;throw new Error(ERR[k]||ERR[j.error]||j.message||"حصلت مشكلة")}return j}
+const cai=(i,o)=>new Date(i).toLocaleString("ar-EG",{timeZone:"Africa/Cairo",...o});
+const fdt=i=>cai(i,{weekday:"long",day:"numeric",month:"long",hour:"numeric",minute:"2-digit"}),ftm=i=>cai(i,{hour:"numeric",minute:"2-digit"}),fday=i=>cai(i,{weekday:"long",day:"numeric",month:"long"}),dk=i=>new Date(i).toLocaleDateString("en-CA",{timeZone:"Africa/Cairo"});
+const note=(m,k)=>`<div class="msg ${k||"e"}">${esc(m)}</div>`;
+function logout(){PW="";try{sessionStorage.removeItem("pw")}catch(e){}$("app").classList.add("hide");$("lg").classList.remove("hide");$("pw").value=""}
+async function login(){const b=$("lb"),e=$("le");PW=$("pw").value;e.classList.add("hide");b.disabled=1;
+try{await api("login");try{sessionStorage.setItem("pw",PW)}catch(x){}start()}catch(x){e.textContent=x.message;e.classList.remove("hide")}b.disabled=0}
+$("lb").onclick=login;$("pw").onkeydown=e=>{if(e.key=="Enter")login()};$("out").onclick=logout;
+const TABS=[["bookings","الحجوزات"],["slots","المواعيد"],["briefs","البريفات"],["settings","إعدادات الموقع"],["ads","ميتا وتيك توك"]];
+function tabs(){$("tabs").innerHTML=TABS.map(([k,l])=>`<button data-t="${k}" class="${k==TAB?"on":""}">${l}${BADGE[k]?`<span class="bd">${BADGE[k]}</span>`:""}</button>`).join("")}
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(b){TAB=b.dataset.t;show()}};
+async function start(){$("lg").classList.add("hide");$("app").classList.remove("hide");show()}
+async function show(){tabs();$("v").innerHTML='<p class="mu">جاري التحميل…</p>';try{await VIEW[TAB]()}catch(e){if(e.auth)return logout();$("v").innerHTML=note(e.message)}}
+const flash=(m,k)=>{const d=document.createElement("div");d.innerHTML=note(m,k||"k");$("v").prepend(d.firstChild)};
+const VIEW={
+async bookings(){const{items}=await api("bookings_list");BADGE.bookings=items.filter(b=>b.status=="new").length;tabs();
+$("v").innerHTML=`<h2>الحجوزات (${items.length})</h2>`+(items.length?items.map(b=>{const s=ST[b.status]||ST.new,w=String(b.phone).replace(/\D/g,"");return`<div class="card" data-id="${esc(b.id)}"><div class="sp"><div><b>${esc(b.name)}</b><div class="mu">${esc(fdt(b.slot_starts_at))} · ${b.duration_min} دقيقة</div></div><span class="tag ${s[1]}">${s[0]}</span></div>
+<p style="margin-top:8px">النشاط: ${esc(b.activity)}</p><p><a href="tel:${esc(b.phone)}">${esc(b.phone)}</a> · <a href="https://wa.me/${esc(w)}" target="_blank" rel="noopener">واتساب</a></p>
+<label>الحالة</label><select data-k="status">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k==b.status?"selected":""}>${v[0]}</option>`).join("")}</select>
+<label>رابط الميتينج (اختياري)</label><input data-k="meeting_link" value="${esc(b.meeting_link||"")}" placeholder="https://meet.google.com/..." dir="ltr">
+<div class="acts"><button class="btn sm" data-a="bsave">حفظ</button><button class="btn r sm" data-a="bdel">حذف الحجز</button></div></div>`}).join(""):'<div class="card mu">مفيش حجوزات لسه.</div>')},
+async slots(){const{items}=await api("slots_list");const tm=new Date(Date.now()+864e5).toLocaleDateString("en-CA",{timeZone:"Africa/Cairo"});
+const G={};items.forEach(s=>(G[dk(s.starts_at)]=G[dk(s.starts_at)]||[]).push(s));
+$("v").innerHTML=`<h2>المواعيد المتاحة</h2><div class="card"><b>إضافة مواعيد</b><p class="mu">الأوقات بتوقيت القاهرة. اكتب أكتر من وقت مفصولين بفاصلة.</p>
+<div class="row c3"><div><label>التاريخ</label><input type="date" id="sd" value="${tm}"></div><div><label>الأوقات</label><input id="st" placeholder="14:00, 16:30, 19:00" dir="ltr"></div><div><label>مدة الميتينج (دقيقة)</label><input type="number" id="su" value="30" min="5" max="240"></div></div>
+<div class="acts"><button class="btn" data-a="sadd">إضافة</button></div></div>`+(items.length?Object.values(G).map(a=>`<div class="card"><b>${esc(fday(a[0].starts_at))}</b>${a.map(s=>`<div class="sp" style="padding:10px 0;border-top:1px solid var(--line);margin-top:8px;align-items:center"><div><b>${esc(ftm(s.starts_at))}</b> <span class="mu">· ${s.duration_min} دقيقة</span></div><div>${s.booking?`<span class="tag a">محجوز: ${esc(s.booking.name)}</span>`:`<span class="tag g">متاح</span> <button class="btn r sm" data-a="sdel" data-id="${esc(s.id)}">حذف</button>`}</div></div>`).join("")}</div>`).join(""):'<div class="card mu">مفيش مواعيد. أضف مواعيد فوق عشان تظهر للعملاء.</div>')},
+async briefs(){const{items}=await api("briefs_list");BADGE.briefs=items.filter(b=>!b.is_read).length;tabs();
+$("v").innerHTML=`<h2>البريفات (${items.length})</h2>`+(items.length?items.map(b=>`<div class="card" data-id="${esc(b.id)}" data-a="bopen" style="cursor:pointer"><div class="sp"><div>${b.is_read?"":'<span class="dot"></span>'}<b>${esc(b.brand_name||"بدون اسم براند")}</b><div class="mu">${esc(b.client_name||"")} ${b.phone?"· "+esc(b.phone):""}</div></div><span class="mu">${esc(cai(b.created_at,{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}))}</span></div></div>`).join(""):'<div class="card mu">مفيش بريفات لسه.</div>')},
+async settings(){const{value:s}=await api("settings_get");const f=(k,d)=>s[k]!=null?s[k]:d;
+$("v").innerHTML=`<h2>إعدادات الموقع</h2><div class="card"><label>سرعة الشرايط المتحركة (الأعمال والآراء)</label><div class="rng"><input type="range" id="ms" min="0.25" max="3" step="0.05" value="${f("marquee_speed",1)}"><output id="mo"></output></div><small>1 = السرعة العادية. أعلى = أسرع.</small>
+<label>سرعة أنيميشن لوجو ميتا</label><div class="rng"><input type="range" id="ls" min="0.25" max="3" step="0.05" value="${f("logo_speed",1)}"><output id="lo"></output></div>
+<label>رقم الواتساب (بالكود الدولي)</label><input id="wa" inputmode="tel" value="${esc(f("whatsapp","201041249535"))}" dir="ltr">
+<label>رابط فيسبوك</label><input id="fb" value="${esc(f("facebook",""))}" placeholder="https://facebook.com/..." dir="ltr">
+<label>رابط إنستجرام</label><input id="ig" value="${esc(f("instagram",""))}" placeholder="https://instagram.com/..." dir="ltr">
+<div class="acts"><button class="btn" data-a="ssave">حفظ الإعدادات</button></div><p class="mu" style="margin-top:10px">التغييرات بتظهر في الموقع بعد تحديث الصفحة.</p></div>`;
+const bind=(r,o)=>{const u=()=>$(o).textContent=Number($(r).value).toFixed(2)+"×";$(r).oninput=u;u()};bind("ms","mo");bind("ls","lo")},
+async ads(){$("v").innerHTML=`<h2>ميتا وتيك توك</h2><div class="card"><b>قريباً</b><p class="mu" style="margin-top:6px">هنا هتربط الموقع بحساب ميتا وتيك توك: تركيب البيكسل وقراءة بياناته، وبعدين إنشاء إعلان للموقع. التجهيزات والخطوات هنعملها في مرحلة لاحقة.</p></div>`}};
+async function act(el){const a=el.dataset.a,card=el.closest("[data-id]"),id=card&&card.dataset.id||el.dataset.id;el.disabled=1;
+try{
+if(a=="bsave"){await api("booking_update",{id,status:card.querySelector('[data-k=status]').value,meeting_link:card.querySelector('[data-k=meeting_link]').value.trim()});await VIEW.bookings();flash("اتحفظ ✓")}
+else if(a=="bdel"){if(!confirm("تحذف الحجز ده؟ الميعاد هيرجع متاح."))return;await api("booking_delete",{id});await VIEW.bookings()}
+else if(a=="sadd"){await api("slots_add",{date:$("sd").value,times:$("st").value.split(/[,،\s]+/).filter(Boolean),duration:$("su").value});await VIEW.slots();flash("اتضافت المواعيد ✓")}
+else if(a=="sdel"){await api("slots_delete",{id});await VIEW.slots()}
+else if(a=="ssave"){await api("settings_save",{marquee_speed:$("ms").value,logo_speed:$("ls").value,whatsapp:$("wa").value,facebook:$("fb").value,instagram:$("ig").value});flash("اتحفظت الإعدادات ✓")}
+else if(a=="bopen"){await openBrief(id)}
+}catch(e){if(e.auth)return logout();flash(e.message,"e")}finally{el.disabled=0}}
+$("v").onclick=e=>{const el=e.target.closest("[data-a]");if(el&&!e.target.closest("a"))act(el)};
+async function openBrief(id){const{item:b}=await api("brief_get",{id});const G={};(b.answers||[]).forEach(x=>(G[x.s]=G[x.s]||[]).push(x));
+$("bx").innerHTML=`<div class="sp noprint"><b style="font-size:18px">${esc(b.brand_name||"بريف")}</b><button class="btn o sm" id="mc">إغلاق</button></div><p class="mu">${esc(b.client_name||"")} ${b.phone?"· "+esc(b.phone):""} · ${esc(cai(b.created_at,{day:"numeric",month:"long",year:"numeric",hour:"numeric",minute:"2-digit"}))}</p>
+<div class="acts noprint"><button class="btn sm" id="mp">طباعة / حفظ PDF</button><button class="btn r sm" id="md2">حذف البريف</button></div>
+<div class="ans">${Object.entries(G).map(([s,a])=>`<h3>${esc(s)}</h3><dl>${a.map(x=>`<dt>${esc(x.q)}</dt><dd>${esc(x.a)}</dd>`).join("")}</dl>`).join("")}</div>`;
+$("md").classList.add("on");$("mc").onclick=closeM;$("mp").onclick=()=>print();
+$("md2").onclick=async()=>{if(!confirm("تحذف البريف ده نهائياً؟"))return;try{await api("brief_delete",{id});closeM()}catch(e){alert(e.message)}};
+if(!b.is_read)api("brief_mark",{id,is_read:true}).catch(()=>{})}
+function closeM(){$("md").classList.remove("on");if(TAB=="briefs")VIEW.briefs().catch(()=>{})}
+$("md").onclick=e=>{if(e.target==$("md"))closeM()};
+if(PW)api("login").then(start).catch(()=>logout());
+</script>
+</body>
+</html>
