@@ -22,6 +22,7 @@ main{max-width:900px;margin:auto;padding:16px}
 .btn.o{background:transparent;color:var(--fg);border-color:var(--line)}.btn.r{background:transparent;color:var(--red);border-color:var(--line)}.btn.s{min-height:36px;padding:6px 12px;font-size:13px}
 .btn:disabled{opacity:.5}
 input[type=text],input[type=email],input[type=password],input[type=date],input[type=time],input[type=number],input[type=tel],select{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);min-height:44px}
+input[type=password],input[type=email]{font-family:system-ui,Arial,sans-serif}
 label.f{display:block;margin:12px 0 4px;font-weight:600;font-size:14px}
 .row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
 .tabs{position:fixed;bottom:0;inset-inline:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:6}
@@ -63,8 +64,9 @@ const fdt=i=>new Date(i).toLocaleString("ar-EG",{timeZone:"Africa/Cairo",weekday
 const fd=i=>new Date(i).toLocaleDateString("ar-EG",{timeZone:"Africa/Cairo",weekday:"long",day:"numeric",month:"long"});
 const ft=i=>new Date(i).toLocaleTimeString("ar-EG",{timeZone:"Africa/Cairo",hour:"numeric",minute:"2-digit"});
 // ---- login ----
-function login(msg){app.innerHTML=`<div class="login card"><h2>لوحة التحكم</h2><p class="mute">Abdelaziz Tamer — Media Buyer</p><label class="f">الإيميل</label><input type="email" id="le" autocomplete="username"><label class="f">كلمة السر</label><input type="password" id="lp" autocomplete="current-password"><div class="err" id="lerr">${msg||""}</div><button class="btn" id="lb" style="width:100%">دخول</button></div>`;
+function login(msg){app.innerHTML=`<div class="login card"><h2>لوحة التحكم</h2><p class="mute">Abdelaziz Tamer — Media Buyer</p><label class="f">الإيميل</label><input type="email" id="le" autocomplete="username"><label class="f">كلمة السر</label><div style="position:relative"><input type="password" id="lp" autocomplete="current-password" style="padding-inline-end:76px"><button type="button" id="ey" class="btn o s" style="position:absolute;inset-inline-end:4px;top:4px">إظهار</button></div><div class="err" id="lerr">${msg||""}</div><button class="btn" id="lb" style="width:100%">دخول</button></div>`;
  const go=async()=>{$("#lb").disabled=1;const x=await raw({action:"login",email:$("#le").value,password:$("#lp").value});if(x.r.ok){T=x.d;save();shell()}else{$("#lerr").textContent=x.d.error||"حصلت مشكلة";$("#lb").disabled=0}};
+ $("#ey").onclick=()=>{const p=$("#lp"),h=p.type=="password";p.type=h?"text":"password";$("#ey").textContent=h?"إخفاء":"إظهار"};
  $("#lb").onclick=go;$("#lp").onkeydown=e=>e.key=="Enter"&&go()}
 // ---- shell ----
 const TABS=[["home","🏠","الرئيسية"],["book","📅","الحجوزات"],["slots","🕒","المواعيد"],["briefs","📝","البريفات"],["set","⚙️","الإعدادات"]];

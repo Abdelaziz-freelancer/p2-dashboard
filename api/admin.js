@@ -2,7 +2,7 @@
 const U = () => process.env.SUPABASE_URL;
 const SK = () => process.env.SUPABASE_SERVICE_ROLE_KEY;
 const AK = () => process.env.SUPABASE_ANON_KEY;
-const SH = () => ({ apikey: SK(), Authorization: 'Bearer ' + SK(), 'Content-Type': 'application/json' });
+const SH = () => ({ apikey: SK(), ...(SK().startsWith('sb_') ? {} : { Authorization: 'Bearer ' + SK() }), 'Content-Type': 'application/json' });
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 async function rest(path, opt = {}) {
