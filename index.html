@@ -4,13 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>لوحة التحكم — Abdelaziz Tamer</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f5f6;--card:#fff;--fg:#0b0b0c;--mute:#6b6b72;--line:#e4e4e7;--ac:#0b0b0c;--acf:#fff;--red:#d92d3a;--grn:#12805c}
 *{box-sizing:border-box;margin:0}
-body{font:400 15px/1.6 Cairo,system-ui,sans-serif;background:var(--bg);color:var(--fg);padding-bottom:84px}
+body{font:400 15px/1.6 Cairo,system-ui,sans-serif;background:var(--bg);color:var(--fg);padding-bottom:90px}
 button,input,select,textarea{font:inherit;color:inherit}
+input[type=password],input[type=email]{font-family:system-ui,Arial,sans-serif}
 .top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .top b{font-weight:800;font-size:17px}.top small{color:var(--mute)}
 main{max-width:900px;margin:auto;padding:16px}
@@ -18,11 +23,11 @@ main{max-width:900px;margin:auto;padding:16px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
 .stat b{display:block;font-size:28px;font-weight:800;line-height:1.2}.stat span{color:var(--mute);font-size:13px}
-.btn{border:1px solid var(--ac);background:var(--ac);color:var(--acf);border-radius:12px;padding:10px 16px;font-weight:600;cursor:pointer;min-height:44px}
+.btn{border:1px solid var(--ac);background:var(--ac);color:var(--acf);border-radius:12px;padding:10px 16px;font-weight:600;cursor:pointer;min-height:44px;text-decoration:none;display:inline-block;text-align:center}
 .btn.o{background:transparent;color:var(--fg);border-color:var(--line)}.btn.r{background:transparent;color:var(--red);border-color:var(--line)}.btn.s{min-height:36px;padding:6px 12px;font-size:13px}
-.btn:disabled{opacity:.5}
-input[type=text],input[type=email],input[type=password],input[type=date],input[type=time],input[type=number],input[type=tel],select{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);min-height:44px}
-input[type=password],input[type=email]{font-family:system-ui,Arial,sans-serif}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+input[type=text],input[type=email],input[type=password],input[type=date],input[type=time],input[type=number],input[type=tel],select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);min-height:44px}
+textarea{min-height:84px;resize:vertical;line-height:1.7}
 label.f{display:block;margin:12px 0 4px;font-weight:600;font-size:14px}
 .row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
 .tabs{position:fixed;bottom:0;inset-inline:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:6}
@@ -38,17 +43,33 @@ h2{font-size:20px;margin:6px 0 12px;font-weight:800}h3{font-size:16px;margin:0 0
 .days{display:flex;gap:6px;flex-wrap:wrap}.days label{border:1px solid var(--line);border-radius:99px;padding:6px 12px;cursor:pointer;background:var(--card)}.days label:has(input:checked){background:var(--ac);color:var(--acf)}.days input{display:none}
 .bs{margin-top:20px}.bs h3{background:#1a1a2e;color:#fff;border-radius:10px;padding:8px 14px}
 .qa{border-bottom:1px solid var(--line);padding:10px 2px}.qa b{display:block;font-size:14px;color:var(--mute)}.qa div{white-space:pre-wrap}
-.modal{position:fixed;inset:0;background:var(--bg);z-index:20;overflow:auto;padding:16px 16px 40px}
-.modal .in{max-width:760px;margin:auto}
+.modal{position:fixed;inset:0;background:var(--bg);z-index:20;overflow:auto;padding:16px 16px 40px}.modal .in{max-width:760px;margin:auto}
+details.acc{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px}
+details.acc>summary{padding:14px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}
+details.acc>summary::-webkit-details-marker{display:none}details.acc>summary::after{content:"›";transform:rotate(90deg);color:var(--mute);font-size:20px}details.acc[open]>summary::after{transform:rotate(-90deg)}
+details.acc>.bd{padding:0 16px 16px}
+.item{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:var(--bg)}
+.item>.hd{display:flex;gap:6px;align-items:center;margin-bottom:6px}.item>.hd b{flex:1;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:10px;width:36px;height:36px;cursor:pointer;font-size:15px}
+.thumb{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}.thumb img{width:84px;height:64px;object-fit:contain;background:repeating-conic-gradient(#ddd 0 25%,#fff 0 50%) 50%/14px 14px;border:1px solid var(--line);border-radius:10px}
+.imgs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}.imgs>div{position:relative}.imgs .x{position:absolute;top:-6px;inset-inline-start:-6px;background:var(--red);color:#fff;border:0;border-radius:99px;width:22px;height:22px;cursor:pointer;line-height:1}
+.save{position:sticky;bottom:78px;z-index:4;display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;margin-top:14px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.save .btn{flex:1}
+.perm{display:grid;grid-template-columns:1fr 130px;gap:6px 10px;align-items:center;margin:8px 0}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.seg button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 14px;cursor:pointer;font-weight:600}.seg button.on{background:var(--ac);color:var(--acf);border-color:var(--ac)}
+.menu a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-weight:600}.menu a:last-child{border:0}
+.note{background:#fff8e5;border:1px solid #f1dca0;border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0}
+code,.mono{font-family:ui-monospace,Menlo,monospace;direction:ltr;unicode-bidi:plaintext;word-break:break-all;font-size:12px;background:var(--bg);padding:6px 8px;border-radius:8px;display:block;margin:4px 0}
 @media print{#app{display:none}.top,.tabs,.noprint{display:none!important}.modal{position:static;padding:0}body{background:#fff}.card{border:0}}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<script src="defaults.js"></script>
 <script>
-const $=s=>document.querySelector(s),app=$("#app");
+const $=s=>document.querySelector(s),app=$("#app"),DEF=window.P2_DEF||{};
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let T=null,tab="home",busy=0;
+let T=null,ME=null,tab="home";
 try{T=JSON.parse(localStorage.getItem("p2t"))}catch(e){}
 const save=()=>{try{T?localStorage.setItem("p2t",JSON.stringify(T)):localStorage.removeItem("p2t")}catch(e){}};
 async function raw(body,tok){const r=await fetch("/api/admin",{method:"POST",headers:{"Content-Type":"application/json",...(tok?{Authorization:"Bearer "+tok}:{})},body:JSON.stringify(body)});let d={};try{d=await r.json()}catch(e){}return{r,d}}
@@ -57,7 +78,8 @@ async function api(action,data={}){
   if(x.r.status===401&&T&&T.refresh_token){const f=await raw({action:"refresh",refresh_token:T.refresh_token});if(f.r.ok){T={...T,...f.d};save();x=await raw({action,...data},T.access_token)}}
   if(x.r.status===401){T=null;save();login();throw new Error("auth")}
   if(!x.r.ok)throw new Error(x.d.error||"خطأ");return x.d}
-// ---- Cairo time helpers ----
+const clone=o=>JSON.parse(JSON.stringify(o));
+// ---- Cairo time ----
 const cairoOffset=(y,m,d,h,mi)=>{const g=Date.UTC(y,m-1,d,h,mi);const f=new Intl.DateTimeFormat("en-GB",{timeZone:"Africa/Cairo",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});const p=Object.fromEntries(f.formatToParts(new Date(g)).map(x=>[x.type,x.value]));return Date.UTC(+p.year,p.month-1,+p.day,+p.hour,+p.minute)-g};
 const cairoISO=(ds,tm)=>{const[y,m,d]=ds.split("-").map(Number),[h,mi]=tm.split(":").map(Number);let g=Date.UTC(y,m-1,d,h,mi);let o=cairoOffset(y,m,d,h,mi);g-=o;const o2=cairoOffset(y,m,d,h,mi);if(o2!==o)g=Date.UTC(y,m-1,d,h,mi)-o2;return new Date(g).toISOString()};
 const fdt=i=>new Date(i).toLocaleString("ar-EG",{timeZone:"Africa/Cairo",weekday:"long",day:"numeric",month:"long",hour:"numeric",minute:"2-digit"});
@@ -69,38 +91,189 @@ function login(msg){app.innerHTML=`<div class="login card"><h2>لوحة التح
  $("#ey").onclick=()=>{const p=$("#lp"),h=p.type=="password";p.type=h?"text":"password";$("#ey").textContent=h?"إخفاء":"إظهار"};
  $("#lb").onclick=go;$("#lp").addEventListener("keydown",e=>{if(e.key==="Enter")go()});$("#le").addEventListener("keydown",e=>{if(e.key==="Enter")$("#lp").focus()})}
 // ---- shell ----
-const TABS=[["home","🏠","الرئيسية"],["book","📅","الحجوزات"],["slots","🕒","المواعيد"],["briefs","📝","البريفات"],["set","⚙️","الإعدادات"]];
-async function shell(){app.innerHTML=`<div class="top"><div><b>لوحة التحكم</b><br><small>${esc(T.email||"")}</small></div><button class="btn o s" id="lo">خروج</button></div><main id="mn"></main><div class="tabs" id="tb"></div>`;
- $("#lo").onclick=()=>{T=null;save();login()};go(tab)}
-async function go(t){tab=t;const n={};try{n.o=await api("overview")}catch(e){if(e.message=="auth")return}
- $("#tb").innerHTML=TABS.map(([k,i,l])=>`<button class="${k==t?"on":""}" data-k="${k}"><i>${i}</i>${l}${k=="briefs"&&n.o&&n.o.unread?`<span class="dot">${n.o.unread}</span>`:""}</button>`).join("");
+const PG={ // key: [icon,label,perm keys (any view)]
+ home:["🏠","الرئيسية",null],book:["📅","الحجوزات",["bookings"]],slots:["🕒","المواعيد",["slots"]],briefs:["📝","البريفات",["briefs"]],
+ texts:["✏️","نصوص الموقع",["texts"]],lists:["🧩","الخدمات والحملات والآراء",["lists"]],media:["🖼","الصور واللوجو",["media"]],bform:["📋","أسئلة البريف",["brief_form"]],
+ look:["🎨","المظهر والإعدادات",["appearance"]],notif:["🔔","الإشعارات",null],admins:["👥","المشرفين","owner"],more:["☰","المزيد",null]};
+const can=(k,l=1)=>ME&&(ME.perms[k]||0)>=l;
+const vis=k=>{const p=PG[k][2];return p===null||(p==="owner"?ME.owner:p.some(x=>can(x)))};
+async function shell(){
+ try{ME=await api("me")}catch(e){return}
+ app.innerHTML=`<div class="top"><div><b>لوحة التحكم</b><br><small>${esc(ME.email)}${ME.owner?" · المالك":""}</small></div><button class="btn o s" id="lo">خروج</button></div><main id="mn"></main><div class="tabs" id="tb"></div>`;
+ $("#lo").onclick=()=>{T=null;ME=null;save();login()};go(tab)}
+async function go(t){tab=t;let o={};try{o=await api("overview")}catch(e){if(e.message=="auth")return}
+ const bar=["home","book","slots","briefs","more"].filter(k=>k=="more"||k=="home"||vis(k));
+ $("#tb").innerHTML=bar.map(k=>`<button class="${k==t||(k=="more"&&!bar.includes(t))?"on":""}" data-k="${k}"><i>${PG[k][0]}</i>${PG[k][1]}${k=="briefs"&&o.unread?`<span class="dot">${o.unread}</span>`:""}</button>`).join("");
  $("#tb").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.k));
- const m=$("#mn");m.innerHTML='<p class="mute">جاري التحميل…</p>';
- try{await V[t](m,n.o)}catch(e){if(e.message!="auth")m.innerHTML=`<p class="err">${esc(e.message)}</p>`}}
-const V={
-async home(m,o){o=o||{};m.innerHTML=`<h2>أهلاً 👋</h2><div class="stats"><div class="stat"><b>${o.upcoming||0}</b><span>حجوزات جاية</span></div><div class="stat"><b>${o.unread||0}</b><span>بريفات جديدة</span></div><div class="stat"><b>${o.open||0}</b><span>مواعيد متاحة</span></div></div><div class="card"><h3>ابدأ من هنا</h3><p class="mute">ضيف مواعيدك الفاضية من تاب "المواعيد"، والعميل هيشوفها ويحجز. أي حجز أو بريف جديد هيوصلك على تليجرام.</p></div><div class="card"><h3>المرحلة الجاية</h3><p class="mute">تعديل محتوى الموقع (الصور، النصوص، الأسئلة، اللوجوهات، الخطوط)، والمشرفين وصلاحياتهم، وربط ميتا وتيك توك.</p></div>`},
-async book(m){const d=await api("bookings_list");m.innerHTML=`<h2>الحجوزات</h2><div class="card">${d.length?d.map(x=>`<div class="it"><div><h4>${esc(x.name)}</h4><p>${x.p2_slots?fdt(x.p2_slots.starts_at):""}</p><p>🏷 ${esc(x.activity)}</p><p dir="ltr" style="text-align:right">${esc(x.phone)}</p></div><div style="display:flex;flex-direction:column;gap:6px"><a class="btn s" href="https://wa.me/${esc(x.phone.replace(/\D/g,"").replace(/^0/,"20"))}" target="_blank" style="text-decoration:none;text-align:center">واتساب</a><button class="btn r s" data-d="${x.id}">إلغاء</button></div></div>`).join(""):'<p class="mute">مفيش حجوزات لسه.</p>'}</div>`;
- m.querySelectorAll("[data-d]").forEach(b=>b.onclick=async()=>{if(!confirm("إلغاء الحجز؟ الميعاد هيرجع متاح للعملاء."))return;await api("booking_delete",{id:b.dataset.d});go("book")})},
-async slots(m){const d=await api("slots_list");const today=new Date().toLocaleDateString("en-CA",{timeZone:"Africa/Cairo"});
+ const old=$("#mn"),m=document.createElement("main");m.id="mn";old.replaceWith(m);m.innerHTML='<p class="mute">جاري التحميل…</p>';window.scrollTo(0,0);
+ try{await V[t](m,o)}catch(e){if(e.message!="auth")m.innerHTML=`<p class="err">${esc(e.message)}</p>`}}
+// ---- image upload ----
+function fileToUpload(file){return new Promise((res,rej)=>{
+ if(file.type=="image/gif"){const r=new FileReader();r.onload=()=>res({type:"image/gif",data:r.result.split(",")[1]});r.onerror=rej;return r.readAsDataURL(file)}
+ const img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{const M=1800,k=Math.min(1,M/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
+  const jpg=file.type=="image/jpeg",ty=jpg?"image/jpeg":"image/webp";let q=.9;const t=()=>c.toBlob(b=>{if(!b)return rej(new Error("فشل تجهيز الصورة"));if(b.size>2.4*1024*1024&&q>.5){q-=.15;return t()}const r=new FileReader();r.onload=()=>res({type:b.type,data:r.result.split(",")[1]});r.readAsDataURL(b)},ty,q);t()};
+ img.onerror=()=>rej(new Error("الملف مش صورة صالحة"));img.src=u})}
+async function uploadFile(file){const p=await fileToUpload(file);const r=await api("upload",{type:p.type,data:p.data});return r.url}
+function pick(multi){return new Promise(res=>{const i=document.createElement("input");i.type="file";i.accept="image/png,image/jpeg,image/webp,image/gif";i.multiple=!!multi;i.onchange=()=>res([...i.files]);i.click()})}
+// ---- generic state binding ----
+const getp=(o,p)=>p===""?o:p.split(".").reduce((a,k)=>a==null?a:a[k],o);
+const setp=(o,p,v)=>{const ks=p.split("."),l=ks.pop();getp(o,ks.join("."))[l]=v};
+function bindRoot(root,S,rerender,ro){
+ root.oninput=e=>{const t=e.target,p=t.dataset.p;if(p==null)return;let v=t.type=="checkbox"?(t.checked?1:0):t.value;if(t.dataset.lines)v=v.split("\n").map(x=>x.trim()).filter(Boolean);if(t.dataset.num)v=+v||0;setp(S,p,v)};
+ root.onchange=e=>{const t=e.target;if(t.dataset.re){rerender()}};
+ root.onclick=async e=>{const b=e.target.closest("[data-a]");if(!b||b.disabled)return;const a=b.dataset.a,p=b.dataset.p;
+  const arr=()=>getp(S,p);
+  if(a=="add"){arr().push(clone(JSON.parse(b.dataset.item)));rerender()}
+  else if(a=="del"){if(!confirm("حذف؟"))return;const i=+p.split(".").pop(),ap=p.split(".").slice(0,-1).join(".");getp(S,ap).splice(i,1);rerender()}
+  else if(a=="up"||a=="down"){const ps=p.split("."),i=+ps.pop(),A=getp(S,ps.join(".")),j=a=="up"?i-1:i+1;if(j<0||j>=A.length)return;[A[i],A[j]]=[A[j],A[i]];rerender()}
+  else if(a=="img"){const f=(await pick(false))[0];if(!f)return;b.disabled=1;b.textContent="جاري الرفع…";try{setp(S,p,await uploadFile(f))}catch(x){alert(x.message)}rerender()}
+  else if(a=="rmimg"){setp(S,p,"");rerender()}
+  else if(a=="imgs"){const fs=await pick(true);if(!fs.length)return;b.disabled=1;b.textContent="جاري الرفع…";try{for(const f of fs)arr().push(await uploadFile(f))}catch(x){alert(x.message)}rerender()}
+  else if(a=="delimg"){const i=+p.split(".").pop(),ap=p.split(".").slice(0,-1).join(".");getp(S,ap).splice(i,1);rerender()}
+  else if(a=="bulk"){const fs=await pick(true);if(!fs.length)return;b.disabled=1;b.textContent="جاري الرفع…";try{for(const f of fs){const u=await uploadFile(f);arr().push({img:u})}}catch(x){alert(x.message)}rerender()}
+ };
+ if(ro){root.querySelectorAll("input,textarea,select,button[data-a]").forEach(e=>e.disabled=1);root.querySelectorAll(".save").forEach(e=>e.remove())}}
+const saveBar=(label="حفظ")=>`<div class="save"><button class="btn" id="sv">${label}</button><span id="sm" class="mute"></span></div>`;
+async function doSave(fn){const b=$("#sv"),m=$("#sm");b.disabled=1;m.className="mute";m.textContent="جاري الحفظ…";try{await fn();m.className="ok";m.textContent="اتحفظ ✓"}catch(e){m.className="err";m.textContent=e.message}b.disabled=0}
+const ib=(a,p,t,l)=>`<button type="button" class="ib" data-a="${a}" data-p="${p}" title="${t}">${l}</button>`;
+// field renderers
+function fld(p,f,o){const[k,l,ty,sub]=f,pp=p?p+"."+k:k,v=o[k];
+ if(ty=="ta")return`<label class="f">${l}</label><textarea data-p="${pp}">${esc(v)}</textarea>`;
+ if(ty=="img")return`<label class="f">${l}</label><div class="thumb">${v?`<img src="${esc(v)}" alt="">`:""}<button type="button" class="btn o s" data-a="img" data-p="${pp}">${v?"تغيير":"رفع صورة"}</button>${v?`<button type="button" class="btn r s" data-a="rmimg" data-p="${pp}">إزالة</button>`:""}</div>`;
+ if(ty=="imgs")return`<label class="f">${l}</label><div class="imgs">${(v||[]).map((u,i)=>`<div><img src="${esc(u)}" alt="" style="width:84px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)"><button type="button" class="x" data-a="delimg" data-p="${pp}.${i}">×</button></div>`).join("")}</div><button type="button" class="btn o s" data-a="imgs" data-p="${pp}">+ رفع صور</button>`;
+ if(ty=="sub")return`<label class="f">${l}</label>${(v||[]).map((x,i)=>itemHtml(pp+"."+i,sub.fields,x,sub.label(x,i),true)).join("")}<button type="button" class="btn o s" data-a="add" data-p="${pp}" data-item='${esc(JSON.stringify(sub.item()))}'>+ إضافة قسم</button>`;
+ return`<label class="f">${l}</label><input type="text" data-p="${pp}" value="${esc(v)}">`}
+function itemHtml(p,fields,o,label,small){return`<div class="item"><div class="hd"><b>${esc(label)}</b>${ib("up",p,"فوق","↑")}${ib("down",p,"تحت","↓")}${ib("del",p,"حذف","🗑")}</div>${fields.map(f=>fld(p,f,o)).join("")}</div>`}
+const V={};
+V.home=async(m,o)=>{m.innerHTML=`<h2>أهلاً 👋</h2><div class="stats">${can("bookings")?`<div class="stat"><b>${o.upcoming||0}</b><span>حجوزات جاية</span></div>`:""}${can("briefs")?`<div class="stat"><b>${o.unread||0}</b><span>بريفات جديدة</span></div>`:""}${can("slots")?`<div class="stat"><b>${o.open||0}</b><span>مواعيد متاحة</span></div>`:""}</div><div class="card"><h3>ابدأ من هنا</h3><p class="mute">ضيف مواعيدك الفاضية من "المواعيد"، وعدّل محتوى الموقع من "المزيد". أي حجز أو بريف جديد هيوصلك على تليجرام وعلى موبايلك.</p></div>`};
+V.more=async m=>{const ks=["texts","lists","media","bform","look","notif","admins"].filter(vis);m.innerHTML=`<h2>المزيد</h2><div class="card menu">${ks.map(k=>`<a data-g="${k}"><span>${PG[k][0]} ${PG[k][1]}</span><span class="mute">‹</span></a>`).join("")}</div>`;m.querySelectorAll("[data-g]").forEach(a=>a.onclick=()=>go(a.dataset.g))};
+// ---- bookings / slots / briefs ----
+V.book=async m=>{const d=await api("bookings_list");m.innerHTML=`<h2>الحجوزات</h2><div class="card">${d.length?d.map(x=>`<div class="it"><div><h4>${esc(x.name)}</h4><p>${x.p2_slots?fdt(x.p2_slots.starts_at):""}</p><p>🏷 ${esc(x.activity)}</p><p dir="ltr" style="text-align:right">${esc(x.phone)}</p></div><div style="display:flex;flex-direction:column;gap:6px"><a class="btn s" href="https://wa.me/${esc(x.phone.replace(/\D/g,"").replace(/^0/,"20"))}" target="_blank">واتساب</a>${can("bookings",2)?`<button class="btn r s" data-d="${x.id}">إلغاء</button>`:""}</div></div>`).join(""):'<p class="mute">مفيش حجوزات لسه.</p>'}</div>`;
+ m.querySelectorAll("[data-d]").forEach(b=>b.onclick=async()=>{if(!confirm("إلغاء الحجز؟ الميعاد هيرجع متاح للعملاء."))return;await api("booking_delete",{id:b.dataset.d});go("book")})};
+V.slots=async m=>{const d=await api("slots_list");const today=new Date().toLocaleDateString("en-CA",{timeZone:"Africa/Cairo"});const ed=can("slots",2);
  const G={};d.forEach(s=>(G[fd(s.starts_at)]=G[fd(s.starts_at)]||[]).push(s));
- m.innerHTML=`<h2>المواعيد</h2><div class="card"><h3>إضافة مواعيد فاضية</h3><div class="row"><div><label class="f">من يوم</label><input type="date" id="d1" value="${today}"></div><div><label class="f">لحد يوم</label><input type="date" id="d2" value="${today}"></div></div><label class="f">الأيام</label><div class="days" id="dy">${["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"].map((n,i)=>`<label><input type="checkbox" value="${i}" ${i!=5?"checked":""}>${n}</label>`).join("")}</div><div class="row"><div><label class="f">من ساعة</label><input type="time" id="t1" value="14:00"></div><div><label class="f">لحد ساعة</label><input type="time" id="t2" value="18:00"></div><div><label class="f">مدة الميتينج (دقيقة)</label><input type="number" id="du" value="30" min="10" step="5"></div></div><div class="err" id="se"></div><button class="btn" id="sa" style="margin-top:12px;width:100%">إضافة المواعيد</button><p class="mute" style="margin-top:8px;font-size:13px">بتوقيت القاهرة. المواعيد بتتقسم تلقائي حسب المدة (مثلاً 2:00 و2:30 و3:00…).</p></div><div class="card"><h3>المواعيد الجاية</h3>${Object.keys(G).length?Object.entries(G).map(([day,a])=>`<div class="bs"><h3>${day}</h3>${a.map(s=>{const bk=s.p2_bookings;return`<div class="it"><div><b>${ft(s.starts_at)}</b> <span class="tag ${bk?"n":"g"}">${bk?"محجوز — "+esc(bk.name||""):"متاح"}</span></div>${bk?"":`<button class="btn r s" data-d="${s.id}">حذف</button>`}</div>`}).join("")}</div>`).join(""):'<p class="mute">مفيش مواعيد. ضيف من فوق.</p>'}</div>`;
+ m.innerHTML=`<h2>المواعيد</h2>${ed?`<div class="card"><h3>إضافة مواعيد فاضية</h3><div class="row"><div><label class="f">من يوم</label><input type="date" id="d1" value="${today}"></div><div><label class="f">لحد يوم</label><input type="date" id="d2" value="${today}"></div></div><label class="f">الأيام</label><div class="days" id="dy">${["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"].map((n,i)=>`<label><input type="checkbox" value="${i}" ${i!=5?"checked":""}>${n}</label>`).join("")}</div><div class="row"><div><label class="f">من ساعة</label><input type="time" id="t1" value="14:00"></div><div><label class="f">لحد ساعة</label><input type="time" id="t2" value="18:00"></div><div><label class="f">مدة الميتينج (دقيقة)</label><input type="number" id="du" value="30" min="10" step="5"></div></div><div class="err" id="se"></div><button class="btn" id="sa" style="margin-top:12px;width:100%">إضافة المواعيد</button><p class="mute" style="margin-top:8px;font-size:13px">بتوقيت القاهرة. المواعيد بتتقسم تلقائي حسب المدة.</p></div>`:""}<div class="card"><h3>المواعيد الجاية</h3>${Object.keys(G).length?Object.entries(G).map(([day,a])=>`<div class="bs"><h3>${day}</h3>${a.map(s=>{const bk=s.p2_bookings;return`<div class="it"><div><b>${ft(s.starts_at)}</b> <span class="tag ${bk?"n":"g"}">${bk?"محجوز — "+esc(bk.name||""):"متاح"}</span></div>${bk||!ed?"":`<button class="btn r s" data-d="${s.id}">حذف</button>`}</div>`}).join("")}</div>`).join(""):'<p class="mute">مفيش مواعيد.</p>'}</div>`;
  m.querySelectorAll("[data-d]").forEach(b=>b.onclick=async()=>{await api("slot_delete",{id:b.dataset.d});go("slots")});
- $("#sa").onclick=async()=>{const e=$("#se");e.textContent="";const d1=$("#d1").value,d2=$("#d2").value,t1=$("#t1").value,t2=$("#t2").value,du=Math.max(10,+$("#du").value||30),days=[...document.querySelectorAll("#dy input:checked")].map(x=>+x.value);
+ if(ed)$("#sa").onclick=async()=>{const e=$("#se");e.textContent="";const d1=$("#d1").value,d2=$("#d2").value,t1=$("#t1").value,t2=$("#t2").value,du=Math.max(10,+$("#du").value||30),days=[...document.querySelectorAll("#dy input:checked")].map(x=>+x.value);
   if(!d1||!d2||!t1||!t2||d2<d1||!days.length){e.textContent="راجع التواريخ والأيام والساعات";return}
   const[h1,m1]=t1.split(":").map(Number),[h2,m2]=t2.split(":").map(Number),a=h1*60+m1,z=h2*60+m2;if(z<=a){e.textContent="ساعة النهاية لازم تكون بعد البداية";return}
   const items=[];for(let c=new Date(d1+"T12:00:00Z");c<=new Date(d2+"T12:00:00Z");c.setUTCDate(c.getUTCDate()+1)){if(!days.includes(c.getUTCDay()))continue;const ds=c.toISOString().slice(0,10);for(let x=a;x+du<=z;x+=du)items.push(cairoISO(ds,String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")))}
   if(!items.length){e.textContent="مفيش مواعيد طلعت، راجع الإعدادات";return}if(items.length>500){e.textContent="كتير أوي (أقصى 500 موعد مرة واحدة)";return}
-  $("#sa").disabled=1;try{await api("slots_add",{items,duration:du});go("slots")}catch(x){e.textContent=x.message;$("#sa").disabled=0}}},
-async briefs(m){const d=await api("briefs_list");m.innerHTML=`<h2>البريفات</h2><div class="card">${d.length?d.map(x=>`<div class="it" style="cursor:pointer" data-b="${x.id}"><div><h4>${esc(x.brand_name||x.client_name||"—")} ${x.is_read?"":'<span class="tag n">جديد</span>'}</h4><p>${esc(x.client_name||"")} · <span dir="ltr">${esc(x.phone||"")}</span></p><p>${fdt(x.created_at)}</p></div><span class="mute">‹</span></div>`).join(""):'<p class="mute">مفيش بريفات لسه.</p>'}</div>`;
- m.querySelectorAll("[data-b]").forEach(r=>r.onclick=()=>brief(r.dataset.b))},
-async set(m){const s=await api("settings_get");m.innerHTML=`<h2>الإعدادات</h2><div class="card"><h3>التواصل</h3><label class="f">رقم واتساب (بكود الدولة)</label><input type="tel" id="wa" dir="ltr" value="${esc(s.whatsapp||"")}" placeholder="201041249535"><label class="f">رابط فيسبوك</label><input type="text" id="fb" dir="ltr" value="${esc(s.facebook||"")}" placeholder="https://facebook.com/…"><label class="f">رابط إنستجرام</label><input type="text" id="ig" dir="ltr" value="${esc(s.instagram||"")}" placeholder="https://instagram.com/…"></div><div class="card"><h3>الحركة</h3><label class="f">سرعة الشرايط المتحركة: <b id="v1"></b></label><input type="range" id="ms" min="0.2" max="3" step="0.1" style="width:100%"><label class="f">سرعة حركة اللوجو (شكل ∞): <b id="v2"></b></label><input type="range" id="ls" min="0.2" max="3" step="0.1" style="width:100%"></div><div id="sm"></div><button class="btn" id="ss" style="width:100%">حفظ</button><div class="card" style="margin-top:14px"><h3>إشعارات تليجرام</h3><p class="mute">ابعت رسالة تجريبية للتأكد إن الإشعارات واصلة.</p><button class="btn o" id="tt" style="margin-top:8px">إرسال رسالة تجريبية</button><div id="tm"></div></div>`;
- $("#ms").value=s.marquee_speed||1;$("#ls").value=s.logo_speed||1;const u=()=>{$("#v1").textContent=$("#ms").value+"×";$("#v2").textContent=$("#ls").value+"×"};u();$("#ms").oninput=$("#ls").oninput=u;
- $("#ss").onclick=async()=>{try{await api("settings_save",{value:{whatsapp:$("#wa").value,facebook:$("#fb").value,instagram:$("#ig").value,marquee_speed:$("#ms").value,logo_speed:$("#ls").value}});$("#sm").innerHTML='<p class="ok">اتحفظ ✓</p>'}catch(e){$("#sm").innerHTML=`<p class="err">${esc(e.message)}</p>`}};
- $("#tt").onclick=async()=>{try{await api("telegram_test");$("#tm").innerHTML='<p class="ok">اتبعتت ✓ شوف تليجرام</p>'}catch(e){$("#tm").innerHTML=`<p class="err">${esc(e.message)}</p>`}}}
-};
+  $("#sa").disabled=1;try{await api("slots_add",{items,duration:du});go("slots")}catch(x){e.textContent=x.message;$("#sa").disabled=0}}};
+V.briefs=async m=>{const d=await api("briefs_list");m.innerHTML=`<h2>البريفات</h2><div class="card">${d.length?d.map(x=>`<div class="it" style="cursor:pointer" data-b="${x.id}"><div><h4>${esc(x.brand_name||x.client_name||"—")} ${x.is_read?"":'<span class="tag n">جديد</span>'}</h4><p>${esc(x.client_name||"")} · <span dir="ltr">${esc(x.phone||"")}</span></p><p>${fdt(x.created_at)}</p></div><span class="mute">‹</span></div>`).join(""):'<p class="mute">مفيش بريفات لسه.</p>'}</div>`;
+ m.querySelectorAll("[data-b]").forEach(r=>r.onclick=()=>brief(r.dataset.b))};
 async function brief(id){const b=await api("brief_get",{id});if(!b)return;const G=[];(b.answers||[]).forEach(a=>{let g=G[G.length-1];if(!g||g.s!=a.s){g={s:a.s,i:[]};G.push(g)}g.i.push(a)});
- const o=document.createElement("div");o.className="modal";o.innerHTML=`<div class="in"><div class="row noprint" style="margin-bottom:12px"><button class="btn o" id="bx">‹ رجوع</button><button class="btn o" id="bp">طباعة / PDF</button><button class="btn r" id="bd">حذف</button></div><div class="card"><h2>${esc(b.brand_name||"بريف")}</h2><p class="mute">${esc(b.client_name||"")} · <span dir="ltr">${esc(b.phone||"")}</span> · ${fdt(b.created_at)}</p></div>${G.map((g,i)=>`<div class="bs"><h3>${i+1}. ${esc(g.s)}</h3><div class="card">${g.i.map(a=>`<div class="qa"><b>${esc(a.q)}</b><div>${esc(a.a)}</div></div>`).join("")}</div></div>`).join("")}</div>`;
- document.body.appendChild(o);const c=()=>{o.remove();go("briefs")};o.querySelector("#bx").onclick=c;o.querySelector("#bp").onclick=()=>print();o.querySelector("#bd").onclick=async()=>{if(confirm("حذف البريف نهائياً؟")){await api("brief_delete",{id});c()}}}
+ const o=document.createElement("div");o.className="modal";o.innerHTML=`<div class="in"><div class="row noprint" style="margin-bottom:12px"><button class="btn o" id="bx">‹ رجوع</button><button class="btn o" id="bp">طباعة / PDF</button>${can("briefs",2)?'<button class="btn r" id="bd">حذف</button>':""}</div><div class="card"><h2>${esc(b.brand_name||"بريف")}</h2><p class="mute">${esc(b.client_name||"")} · <span dir="ltr">${esc(b.phone||"")}</span> · ${fdt(b.created_at)}</p></div>${G.map((g,i)=>`<div class="bs"><h3>${i+1}. ${esc(g.s)}</h3><div class="card">${g.i.map(a=>`<div class="qa"><b>${esc(a.q)}</b><div>${esc(a.a)}</div></div>`).join("")}</div></div>`).join("")}</div>`;
+ document.body.appendChild(o);const c=()=>{o.remove();go("briefs")};o.querySelector("#bx").onclick=c;o.querySelector("#bp").onclick=()=>print();const d=o.querySelector("#bd");if(d)d.onclick=async()=>{if(confirm("حذف البريف نهائياً؟")){await api("brief_delete",{id});c()}}}
+// ---- texts ----
+V.texts=async m=>{const C=await api("content_get"),ov=C.texts||{},D=DEF.texts||{},ro=!can("texts",2),secs=DEF.secnames||{};
+ const sk=k=>k.replace(".","~"),S={};Object.keys(D).forEach(k=>{const d=D[k],o=ov[k]||{};S[sk(k)]=d.single?{v:o.v!=null?o.v:d.v}:{en:o.en!=null?o.en:d.en,ar:o.ar!=null?o.ar:d.ar}});
+ const bySec={};Object.keys(D).forEach(k=>(bySec[D[k].sec]=bySec[D[k].sec]||[]).push(k));
+ const order=Object.keys(secs);
+ m.innerHTML=`<h2>نصوص الموقع</h2><p class="mute" style="margin-bottom:12px">عدّل أي نص بالعربي والإنجليزي. اللي مش بتغيره بيفضل زي ما هو. سطر جديد = سطر جديد في الموقع.</p>${order.filter(s=>bySec[s]).map(s=>`<details class="acc"><summary>${esc(secs[s])}</summary><div class="bd">${bySec[s].map(k=>{const d=D[k];return d.single?`<label class="f">${esc(d.v)}</label><input type="text" data-p="${sk(k)}.v">`:`<div class="item"><div class="hd"><b>${esc((d.en||"").replace(/\n/g," ").slice(0,60))}</b></div><label class="f">English</label><textarea dir="ltr" data-p="${sk(k)}.en"></textarea><label class="f">العربي</label><textarea data-p="${sk(k)}.ar"></textarea></div>`}).join("")}</div></details>`).join("")}${saveBar()}`;
+ m.querySelectorAll("[data-p]").forEach(e=>e.value=getp(S,e.dataset.p)||"");
+ bindRoot(m,S,()=>{},ro);
+ if(!ro)$("#sv").onclick=()=>doSave(async()=>{const out={};Object.keys(D).forEach(k=>{const d=D[k],v=S[sk(k)];if(d.single){if((v.v||"").trim()&&v.v!==d.v)out[k]={v:v.v}}else{const o={};if((v.en||"").trim()&&v.en!==d.en)o.en=v.en;if((v.ar||"").trim()&&v.ar!==d.ar)o.ar=v.ar;if(Object.keys(o).length)out[k]=o}});await api("content_save",{part:"texts",value:out})})};
+// ---- lists ----
+const SF=[["te","العنوان (English)"],["ta","العنوان (عربي)"],["de","الوصف (English)","ta"],["da","الوصف (عربي)","ta"]];
+const LISTS={
+ services:{t:"الخدمات (ماذا أفعل)",item:()=>({te:"",ta:"",de:"",da:""}),f:SF,label:x=>x.te||x.ta||"خدمة"},
+ why:{t:"ليه تشتغل معايا",item:()=>({te:"",ta:"",de:"",da:""}),f:SF,label:x=>x.te||x.ta||"ميزة"},
+ brands:{t:"لوجوهات البراندات (داخل علامة ∞)",item:()=>({n:"",img:""}),f:[["n","الاسم (بيظهر لو مفيش لوجو)"],["img","اللوجو (يفضل PNG شفاف وفاتح)","img"]],label:x=>x.n||"لوجو",bulk:1,note:"علامة ∞ بتبقى سودا في المود النهاري، فاستخدم لوجوهات فاتحة/بيضاء بخلفية شفافة. ممكن تضيف عدد كبير."},
+ cases:{t:"النتائج (الحملات)",item:()=>({n:"",re:"",ra:"",img:"",shots:[],sec:[]}),f:[["n","اسم الحملة / البراند"],["re","النتيجة (English) مثال: 1M EGP"],["ra","النتيجة (عربي)"],["img","صورة الغلاف","img"],["shots","سكرينات إضافية للحملة","imgs"],["sec","أقسام الحالة (مشاكل / حلول / استراتيجية …)","sub",{item:()=>({te:"",ta:"",de:"",da:"",img:""}),fields:[...SF,["img","صورة للقسم (اختياري)","img"]],label:(x,i)=>x.te||x.ta||"قسم "+(i+1)}]],label:x=>x.n||"حملة"},
+ showcase:{t:"سكرينات (ورا الأرقام)",item:()=>({img:""}),f:[["img","السكرين","img"]],label:(x,i)=>"سكرين "+(i+1),bulk:1,note:"الصور بتتعرض في الشريط المتحرك. لو مفيش صور بيظهر شكل مؤقت."},
+ testimonials:{t:"آراء العملاء",item:()=>({img:"",qe:"",qa:"",ne:"",na:""}),f:[["img","سكرين رأي العميل (اختياري — لو رفعته هيظهر بدل النص)","img"],["qe","الرأي (English)","ta"],["qa","الرأي (عربي)","ta"],["ne","اسم العميل (English)"],["na","اسم العميل (عربي)"]],label:x=>x.ne||x.na||(x.img?"سكرين":"رأي")}};
+let curList="services";
+V.lists=async m=>{const C=await api("content_get"),ro=!can("lists",2);
+ const draw=()=>{const L=LISTS[curList];
+  m.innerHTML=`<h2>الخدمات والحملات والآراء</h2><div class="seg">${Object.keys(LISTS).map(k=>`<button data-k="${k}" class="${k==curList?"on":""}">${LISTS[k].t.replace(/ \(.*\)/,"")}</button>`).join("")}</div><div id="ed"></div>`;
+  m.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{curList=b.dataset.k;draw()});
+  const S={list:clone(Array.isArray(C[curList])?C[curList]:(DEF[curList]||[]))};
+  const ed=$("#ed"),re=()=>{const y=scrollY;render();scrollTo(0,y)};
+  const render=()=>{ed.innerHTML=`<div class="card"><h3>${L.t}</h3>${L.note?`<div class="note">${L.note}</div>`:""}${S.list.map((x,i)=>itemHtml("list."+i,L.f,x,L.label(x,i))).join("")||'<p class="mute">القائمة فاضية.</p>'}<div class="row" style="margin-top:10px"><button type="button" class="btn o" data-a="add" data-p="list" data-item='${esc(JSON.stringify(L.item()))}'>+ إضافة</button>${L.bulk?`<button type="button" class="btn o" data-a="bulk" data-p="list">+ رفع عدة صور</button>`:""}<button type="button" class="btn r" id="rs">استرجاع الافتراضي</button></div></div>${saveBar("حفظ "+L.t.replace(/ \(.*\)/,""))}`;
+   bindRoot(ed,S,re,ro);
+   const r=$("#rs");if(r)r.onclick=()=>{if(confirm("استرجاع القائمة الافتراضية؟ (مش هتتحفظ إلا لما تضغط حفظ)")){S.list=clone(DEF[curList]||[]);re()}};if(ro&&r)r.remove();
+   if(!ro)$("#sv").onclick=()=>doSave(async()=>{await api("content_save",{part:"list",key:curList,value:S.list});C[curList]=clone(S.list)})};
+  render()};
+ draw()};
+// ---- images ----
+V.media=async m=>{const C=await api("content_get"),S={im:{me_white:"",me_dark:"",logo:"",...(C.images||{})}},ro=!can("media",2);
+ const F=[["me_white","صورتك — المود النهاري (الأبيض)","img"],["me_dark","صورتك — المود الليلي (الأسود)","img"],["logo","اللوجو (القائمة العلوية + شاشة التحميل + أيقونة التبويب)","img"]];
+ const render=()=>{m.innerHTML=`<h2>الصور واللوجو</h2><div class="card">${F.map(f=>fld("im",f,S.im)).join("")}<p class="mute" style="margin-top:10px;font-size:13px">لو ما رفعتش صورة، الموقع بيستخدم الصورة الأصلية. صورتك الأفضل تكون PNG/WEBP بخلفية شفافة.</p></div>${saveBar()}`;bindRoot(m,S,()=>render(),ro);if(!ro)$("#sv").onclick=()=>doSave(()=>api("content_save",{part:"images",value:S.im}))};render()};
+// ---- brief form ----
+const BTYPES=[["text","نص قصير"],["textarea","نص طويل"],["tel","رقم تليفون"],["email","إيميل"],["radio","اختيار واحد"],["check","اختيارات متعددة"],["list","قائمة أسطر"],["grid","جدول"]];
+const nid=()=>"f"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+V.bform=async m=>{const C=await api("content_get"),ro=!can("brief_form",2),S={b:clone(C.brief&&C.brief.sections?C.brief:DEF.brief)};
+ const fieldH=(p,f,fi,n)=>{const core=["name","brand","phone"].includes(f.id);return`<div class="item"><div class="hd"><b>${esc(f.l||"سؤال")}</b>${core?'<span class="tag">أساسي</span>':""}${ib("up",p,"فوق","↑")}${ib("down",p,"تحت","↓")}${core?"":ib("del",p,"حذف","🗑")}</div>
+  <label class="f">نص السؤال</label><input type="text" data-p="${p}.l" value="${esc(f.l)}">
+  <div class="row"><div><label class="f">نوع الإجابة</label><select data-p="${p}.type" data-re="1">${BTYPES.map(t=>`<option value="${t[0]}" ${t[0]==f.type?"selected":""}>${t[1]}</option>`).join("")}</select></div><div><label class="f">مطلوب؟</label><select data-p="${p}.req" data-num="1"><option value="0" ${f.req?"":"selected"}>لا</option><option value="1" ${f.req?"selected":""}>نعم</option></select></div></div>
+  <label class="f">توضيح تحت السؤال (اختياري)</label><input type="text" data-p="${p}.h" value="${esc(f.h||"")}">
+  ${["text","textarea","tel","email","list"].includes(f.type)?`<label class="f">نص داخل الخانة (placeholder)</label><input type="text" data-p="${p}.ph" value="${esc(f.ph||"")}">`:""}
+  ${["radio","check"].includes(f.type)?`<label class="f">الاختيارات (كل اختيار في سطر)</label><textarea data-lines="1" data-p="${p}.opts">${esc((f.opts||[]).join("\n"))}</textarea>`:""}
+  ${f.type=="list"?`<label class="f">عدد الأسطر</label><input type="number" min="1" max="10" data-num="1" data-p="${p}.n" value="${f.n||3}">`:""}
+  ${f.type=="grid"?`<label class="f">الصفوف (كل صف في سطر)</label><textarea data-lines="1" data-p="${p}.rows">${esc((f.rows||[]).join("\n"))}</textarea><label class="f">الأعمدة (كل عمود في سطر). عمود باختيارات: العنوان|اختيار1|اختيار2</label><textarea data-lines="1" data-p="${p}.cols">${esc((f.cols||[]).join("\n"))}</textarea>`:""}</div>`};
+ const render=()=>{const B=S.b;m.innerHTML=`<h2>أسئلة البريف</h2><div class="note">الحقول الأساسية (اسم العميل، اسم البراند، رقم التواصل) بتظهر في إشعارك وماينفعش تتمسح.</div><div class="card"><label class="f">عنوان الصفحة</label><input type="text" data-p="b.title" value="${esc(B.title)}"><label class="f">مقدمة</label><textarea data-p="b.intro">${esc(B.intro)}</textarea><label class="f">نص زرار الإرسال</label><input type="text" data-p="b.submit" value="${esc(B.submit)}"></div>
+  ${B.sections.map((s,si)=>`<details class="acc" ${si==0?"open":""}><summary>${si+1}. ${esc(s.t)}</summary><div class="bd"><div class="row" style="margin-bottom:6px">${ib("up","b.sections."+si,"فوق","↑")}${ib("down","b.sections."+si,"تحت","↓")}${ib("del","b.sections."+si,"حذف القسم","🗑")}</div>
+  <label class="f">اسم القسم</label><input type="text" data-p="b.sections.${si}.t" value="${esc(s.t)}"><label class="f">وصف القسم</label><input type="text" data-p="b.sections.${si}.s" value="${esc(s.s||"")}">
+  <label class="f">ملحوظة بارزة (اختياري)</label><textarea data-p="b.sections.${si}.note">${esc(s.note||"")}</textarea><div class="row"><div><label class="f">عنوان الملحوظة</label><input type="text" data-p="b.sections.${si}.nl" value="${esc(s.nl||"")}"></div><div><label class="f">لون الملحوظة</label><select data-p="b.sections.${si}.nt"><option value="pk" ${s.nt!="am"?"selected":""}>وردي</option><option value="am" ${s.nt=="am"?"selected":""}>أصفر</option></select></div></div>
+  <h3 style="margin-top:14px">الأسئلة</h3>${(s.fields||[]).map((f,fi)=>fieldH("b.sections."+si+".fields."+fi,f)).join("")}<button type="button" class="btn o s" data-a="add" data-p="b.sections.${si}.fields" data-item='${esc(JSON.stringify({id:"__id__",l:"سؤال جديد",type:"text",req:0,h:"",ph:""}))}'>+ إضافة سؤال</button></div></details>`).join("")}
+  <button type="button" class="btn o" data-a="add" data-p="b.sections" data-item='${esc(JSON.stringify({t:"قسم جديد",s:"",note:"",nl:"",nt:"pk",fields:[]}))}'>+ إضافة قسم</button><button type="button" class="btn r" id="rs" style="margin-inline-start:8px">استرجاع الأسئلة الافتراضية</button>${saveBar("حفظ الأسئلة")}`;
+  // احتفظ بحالة الفتح
+  bindRoot(m,S,()=>{const y=scrollY,op=[...m.querySelectorAll("details")].map(d=>d.open);render();m.querySelectorAll("details").forEach((d,i)=>{if(op[i]!=null)d.open=op[i]});scrollTo(0,y)},ro);
+  // ids للأسئلة الجديدة
+  S.b.sections.forEach(s=>(s.fields||[]).forEach(f=>{if(f.id=="__id__")f.id=nid()}));
+  const r=$("#rs");if(r){r.onclick=()=>{if(confirm("استرجاع الأسئلة الافتراضية؟ (مش هتتحفظ إلا لما تضغط حفظ)")){S.b=clone(DEF.brief);render()}};if(ro)r.remove()}
+  if(!ro)$("#sv").onclick=()=>doSave(()=>{S.b.sections.forEach(s=>(s.fields||[]).forEach(f=>{if(f.id=="__id__")f.id=nid()}));return api("content_save",{part:"brief",value:S.b})})};
+ render()};
+// ---- look & settings ----
+V.look=async m=>{const s=await api("settings_get"),ro=!can("appearance",2),fl=DEF.fontlist||{en:[],ar:[]};
+ const social=Array.isArray(s.social)?s.social:[{n:"Facebook",u:s.facebook||"",v:1},{n:"Instagram",u:s.instagram||"",v:1}];
+ const S={s:{whatsapp:s.whatsapp||"",site_title:s.site_title||"",default_lang:s.default_lang||"en",default_theme:s.default_theme||"light",marquee_speed:s.marquee_speed||1,logo_speed:s.logo_speed||1,social:clone(social),fonts:{en_head:"",en_body:"",ar_head:"",ar_body:"",...(s.fonts||{})}}};
+ const fsel=(k,l,ty)=>{const cur=S.s.fonts[k]||"",list=fl[ty].map(x=>x[0]),custom=cur&&!list.includes(cur);return`<label class="f">${l}</label><select data-fk="${k}"><option value="">الافتراضي</option>${list.map(n=>`<option ${n==cur?"selected":""}>${n}</option>`).join("")}<option value="__c" ${custom?"selected":""}>خط تاني (اكتب اسمه)…</option></select>${custom?`<input type="text" data-p="s.fonts.${k}" value="${esc(cur)}" placeholder="اسم الخط من Google Fonts بالظبط" style="margin-top:6px">`:""}`};
+ const render=()=>{const f=S.s;m.innerHTML=`<h2>المظهر والإعدادات</h2>
+ <div class="card"><h3>الافتراضي للزائر</h3><div class="row"><div><label class="f">اللغة</label><select data-p="s.default_lang"><option value="ar" ${f.default_lang=="ar"?"selected":""}>العربي</option><option value="en" ${f.default_lang=="en"?"selected":""}>English</option></select></div><div><label class="f">الإضاءة</label><select data-p="s.default_theme"><option value="light" ${f.default_theme=="light"?"selected":""}>نهاري (أبيض)</option><option value="dark" ${f.default_theme=="dark"?"selected":""}>ليلي (أسود)</option></select></div></div><p class="mute" style="font-size:13px;margin-top:6px">ده لأول زيارة. اللي الزائر يختاره بنفسه بيتحفظ عنده.</p></div>
+ <div class="card"><h3>الخطوط</h3>${fsel("en_head","خط العناوين — إنجليزي","en")}${fsel("en_body","خط النص — إنجليزي","en")}${fsel("ar_head","خط العناوين — عربي","ar")}${fsel("ar_body","خط النص — عربي","ar")}<p class="mute" style="font-size:13px;margin-top:6px">الخطوط من Google Fonts.</p></div>
+ <div class="card"><h3>الحركة</h3><label class="f">سرعة الشرايط المتحركة: <b id="v1"></b></label><input type="range" data-p="s.marquee_speed" data-num="1" min="0.2" max="3" step="0.1" style="width:100%"><label class="f">سرعة حركة علامة ∞: <b id="v2"></b></label><input type="range" data-p="s.logo_speed" data-num="1" min="0.2" max="3" step="0.1" style="width:100%"></div>
+ <div class="card"><h3>التواصل</h3><label class="f">رقم واتساب (بكود الدولة)</label><input type="tel" dir="ltr" data-p="s.whatsapp" value="${esc(f.whatsapp)}" placeholder="201041249535"><h3 style="margin-top:16px">حسابات السوشيال</h3>${f.social.map((x,i)=>`<div class="item"><div class="hd"><b>${esc(x.n||"حساب")}</b>${ib("up","s.social."+i,"فوق","↑")}${ib("down","s.social."+i,"تحت","↓")}${ib("del","s.social."+i,"حذف","🗑")}</div><div class="row"><div><label class="f">الاسم</label><input type="text" data-p="s.social.${i}.n" value="${esc(x.n)}"></div><div><label class="f">إظهار في الموقع</label><select data-p="s.social.${i}.v" data-num="1"><option value="1" ${x.v===0?"":"selected"}>ظاهر</option><option value="0" ${x.v===0?"selected":""}>مخفي</option></select></div></div><label class="f">الرابط (https://…)</label><input type="text" dir="ltr" data-p="s.social.${i}.u" value="${esc(x.u)}"></div>`).join("")}<button type="button" class="btn o s" data-a="add" data-p="s.social" data-item='${esc(JSON.stringify({n:"",u:"",v:1}))}'>+ إضافة حساب (تيك توك، يوتيوب…)</button></div>
+ <div class="card"><h3>عنوان الموقع (تبويب المتصفح)</h3><input type="text" data-p="s.site_title" value="${esc(f.site_title)}" placeholder="Abdelaziz Tamer | Media Buyer"></div>${saveBar()}`;
+  const u=()=>{$("#v1").textContent=S.s.marquee_speed+"×";$("#v2").textContent=S.s.logo_speed+"×"};
+  m.querySelectorAll('input[type=range]').forEach(e=>{e.value=getp(S,e.dataset.p)});u();
+  bindRoot(m,S,()=>{const y=scrollY;render();scrollTo(0,y)},ro);m.addEventListener("input",u);
+  m.querySelectorAll("[data-fk]").forEach(sel=>sel.onchange=()=>{const k=sel.dataset.fk;S.s.fonts[k]=sel.value=="__c"?(S.s.fonts[k]||" "):sel.value;render()});
+  if(!ro)$("#sv").onclick=()=>doSave(async()=>{const o={...S.s};o.fonts={...o.fonts};Object.keys(o.fonts).forEach(k=>o.fonts[k]=(o.fonts[k]||"").trim());await api("settings_save",{value:o})})};
+ render()};
+// ---- notifications ----
+const b64u=s=>{const p="=".repeat((4-s.length%4)%4),b=(s+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b);return Uint8Array.from([...r].map(c=>c.charCodeAt(0)))};
+V.notif=async m=>{const k=(await api("push_key")).key,sup="serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window;let sub=null;
+ if(sup){try{const reg=await navigator.serviceWorker.getRegistration();sub=reg&&await reg.pushManager.getSubscription()}catch(e){}}
+ const ios=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+ m.innerHTML=`<h2>الإشعارات</h2>
+ <div class="card"><h3>📱 إشعار على الموبايل</h3>${!k?`<div class="note">إشعارات الموبايل لسه مش متفعلة على السيرفر.${ME.owner?" اضغط الزرار تحت لتوليد المفاتيح وحطها في Vercel (الخطوات تحته).":" اطلب من المالك يفعّلها."}</div>`:""}
+ ${ios&&!standalone?`<div class="note">على الآيفون: افتح الداشبورد في Safari ← زرار المشاركة ← <b>Add to Home Screen</b>، وافتحه من الأيقونة، وبعدين فعّل الإشعارات.</div>`:""}
+ ${!sup?'<p class="err">المتصفح ده مش بيدعم إشعارات الموبايل.</p>':`<p class="mute" id="ps">${sub?"✅ الإشعارات مفعّلة على الجهاز ده.":"مش مفعّلة على الجهاز ده."}</p><div class="row"><button class="btn" id="pe" ${k?"":"disabled"}>${sub?"إعادة تفعيل":"تفعيل إشعارات الموبايل"}</button>${sub?'<button class="btn o" id="pt">إرسال إشعار تجريبي</button><button class="btn r" id="pd">إيقاف</button>':""}</div><div id="pm"></div>`}
+ ${ME.owner?`<hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><button class="btn o" id="vg">توليد مفاتيح الإشعارات (VAPID)</button><div id="vo"></div>`:""}</div>
+ ${ME.owner?`<div class="card"><h3>✈️ تليجرام</h3><p class="mute">ابعت رسالة تجريبية للتأكد إن الإشعارات واصلة.</p><button class="btn o" id="tt" style="margin-top:8px">إرسال رسالة تجريبية</button><div id="tm"></div></div>`:""}`;
+ const say=(id,t,c)=>{const e=$(id);if(e)e.innerHTML=`<p class="${c||"ok"}">${esc(t)}</p>`};
+ if($("#pe"))$("#pe").onclick=async()=>{try{const reg=await navigator.serviceWorker.register("/sw.js");await navigator.serviceWorker.ready;const perm=await Notification.requestPermission();if(perm!="granted")return say("#pm","لازم توافق على الإشعارات من المتصفح","err");
+  const s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(k)});await api("push_subscribe",{sub:s.toJSON()});say("#pm","اتفعلت ✓ جرّب الإشعار التجريبي");setTimeout(()=>V.notif(m),800)}catch(e){say("#pm",e.message||"فشل التفعيل","err")}};
+ if($("#pt"))$("#pt").onclick=async()=>{try{await api("push_test");say("#pm","اتبعت ✓")}catch(e){say("#pm",e.message,"err")}};
+ if($("#pd"))$("#pd").onclick=async()=>{try{const reg=await navigator.serviceWorker.getRegistration(),s=reg&&await reg.pushManager.getSubscription();if(s){await api("push_unsubscribe",{endpoint:s.endpoint});await s.unsubscribe()}V.notif(m)}catch(e){say("#pm",e.message,"err")}};
+ if($("#vg"))$("#vg").onclick=async()=>{try{const v=await api("vapid_generate");$("#vo").innerHTML=`<div class="note">انسخ القيم دي في Vercel (<b>Settings ← Environment Variables</b>) في <b>مشروعي الموقع والداشبورد معاً</b>، وبعدين Redeploy. <b>ماتبعتهاش لأي حد</b> والمفتاح الخاص سري.</div><label class="f">VAPID_PUBLIC_KEY</label><code>${esc(v.publicKey)}</code><label class="f">VAPID_PRIVATE_KEY</label><code>${esc(v.privateKey)}</code><label class="f">VAPID_SUBJECT</label><code>mailto:${esc(ME.email)}</code>`}catch(e){say("#vo",e.message,"err")}};
+ if($("#tt"))$("#tt").onclick=async()=>{try{await api("telegram_test");say("#tm","اتبعتت ✓ شوف تليجرام")}catch(e){say("#tm",e.message,"err")}}};
+// ---- admins ----
+const PL={bookings:"الحجوزات",slots:"المواعيد",briefs:"البريفات",texts:"نصوص الموقع",lists:"الخدمات والحملات والآراء واللوجوهات",media:"الصور واللوجو",brief_form:"أسئلة البريف",appearance:"المظهر والإعدادات"};
+const permH=(id,p)=>Object.keys(PL).map(k=>`<div class="perm"><span>${PL[k]}</span><select data-pk="${k}" data-for="${id}"><option value="0" ${!(p[k]>0)?"selected":""}>ممنوع</option><option value="1" ${p[k]==1?"selected":""}>مشاهدة</option><option value="2" ${p[k]==2?"selected":""}>تعديل</option></select></div>`).join("");
+const readP=id=>{const o={};document.querySelectorAll(`[data-for="${id}"]`).forEach(s=>o[s.dataset.pk]=+s.value);return o};
+V.admins=async m=>{const L=await api("admins_list");
+ m.innerHTML=`<h2>المشرفين</h2><p class="mute" style="margin-bottom:12px">المشرف بيدخل بنفس رابط الداشبورد بإيميله وكلمة سره، وبيشوف ويعدّل اللي إنت تسمحله بيه بس.</p>
+ ${L.map((a,i)=>`<details class="acc"><summary>${esc(a.email)}</summary><div class="bd">${permH("a"+i,a.perms||{})}<div class="row" style="margin-top:10px"><button class="btn" data-sv="${i}">حفظ الصلاحيات</button><button class="btn o" data-pw="${i}">تغيير كلمة السر</button><button class="btn r" data-rm="${i}">حذف المشرف</button></div><div id="am${i}"></div></div></details>`).join("")}
+ <div class="card"><h3>إضافة مشرف</h3><label class="f">الإيميل</label><input type="email" id="ne" dir="ltr"><label class="f">كلمة السر (8 حروف على الأقل)</label><input type="text" id="np" dir="ltr" autocomplete="off">${permH("new",{})}<div id="nm"></div><button class="btn" id="na" style="width:100%;margin-top:8px">إضافة المشرف</button></div>`;
+ const say=(id,t,c)=>{$(id).innerHTML=`<p class="${c||"ok"}">${esc(t)}</p>`};
+ m.querySelectorAll("[data-sv]").forEach(b=>b.onclick=async()=>{const i=b.dataset.sv;try{await api("admins_update",{email:L[i].email,perms:readP("a"+i)});say("#am"+i,"اتحفظ ✓")}catch(e){say("#am"+i,e.message,"err")}});
+ m.querySelectorAll("[data-pw]").forEach(b=>b.onclick=async()=>{const i=b.dataset.pw,p=prompt("كلمة السر الجديدة (8 حروف على الأقل):");if(!p)return;try{await api("admins_password",{email:L[i].email,password:p});say("#am"+i,"اتغيرت ✓")}catch(e){say("#am"+i,e.message,"err")}});
+ m.querySelectorAll("[data-rm]").forEach(b=>b.onclick=async()=>{const i=b.dataset.rm;if(!confirm("حذف المشرف "+L[i].email+"؟"))return;try{await api("admins_delete",{email:L[i].email});V.admins(m)}catch(e){say("#am"+i,e.message,"err")}});
+ $("#na").onclick=async()=>{try{const r=await api("admins_create",{email:$("#ne").value,password:$("#np").value,perms:readP("new")});say("#nm","اتضاف ✓ "+(r.note||""));setTimeout(()=>V.admins(m),1200)}catch(e){say("#nm",e.message,"err")}}};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
 T&&T.access_token?shell():login();
 </script>
 </body>
