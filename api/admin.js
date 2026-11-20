@@ -8,7 +8,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // الأقسام اللي ينفع تتحدد صلاحياتها: 0 = ممنوع، 1 = مشاهدة، 2 = تعديل
-const PERM_KEYS = ['bookings', 'slots', 'briefs', 'texts', 'lists', 'media', 'brief_form', 'appearance'];
+const PERM_KEYS = ['bookings', 'slots', 'briefs', 'texts', 'lists', 'media', 'brief_form', 'appearance', 'stats'];
 const LIST_KEYS = ['services', 'why', 'brands', 'cases', 'showcase', 'testimonials'];
 const IMAGE_KEYS = ['me_white', 'me_dark', 'logo'];
 
@@ -66,6 +66,9 @@ const SETTINGS_KEYS = {
   default_theme: v => (v === 'dark' ? 'dark' : 'light'),
   site_title: v => String(v || '').slice(0, 120),
   social: v => (Array.isArray(v) ? v.slice(0, 20).map(s => ({ n: String(s.n || '').slice(0, 40), u: /^(https:\/\/|http:\/\/localhost[:\/])/i.test(s.u || '') ? String(s.u).slice(0, 400) : '', v: s.v === 0 || s.v === false ? 0 : 1 })).filter(s => s.n) : []),
+  meta_pixel: v => { const d = String(v || '').replace(/\D/g, ''); return d.length >= 8 && d.length <= 20 ? d : ''; },
+  tiktok_pixel: v => { const d = String(v || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, ''); return d.length >= 8 && d.length <= 30 ? d : ''; },
+  wa_template: v => String(v || '').slice(0, 800),
   fonts: v => { const o = {}; ['en_head', 'en_body', 'ar_head', 'ar_body'].forEach(k => { const n = String((v || {})[k] || '').trim(); o[k] = /^[\w \-]{2,40}$/.test(n) ? n : ''; }); return o; },
 };
 
@@ -114,7 +117,16 @@ module.exports = async (req, res) => {
       }
       // ---- الحجوزات والمواعيد والبريفات ----
       case 'bookings_list': need('bookings', 1);
-        return send(await rest('p2_bookings?select=id,name,phone,activity,created_at,p2_slots(starts_at,duration_min)&order=created_at.desc&limit=300'));
+      {
+        const rows = await rest('p2_bookings?select=id,name,phone,activity,created_at,p2_slots(starts_at,duration_min)&order=created_at.desc&limit=300');
+        const st = ((await rest('p2_settings?key=eq.site&select=value'))[0] || {}).value || {};
+        return send({ rows, tpl: st.wa_template || '' });
+      }
+      case 'stats': {
+        need('stats', 1);
+        const days = [1, 7, 30, 90].includes(+b.days) ? +b.days : 7;
+        return send(await rest('rpc/p2_stats', { method: 'POST', body: JSON.stringify({ p_days: days }) }));
+      }
       case 'booking_delete': need('bookings', 2);
         if (!UUID.test(b.id)) return send({ error: 'bad id' }, 400);
         await rest(`p2_bookings?id=eq.${b.id}`, { method: 'DELETE' }); return send({ ok: true });
